@@ -15,12 +15,10 @@ const activities = [
   { id: 1, 
     name: 'Catch and eat your own river fish', 
     description: 'Fish guarantied!', duration: '4 hours', price: '750,-', 
-    longDescription: `Join us at our barge for a fun day of fishing! We wil find the best local spots for trout and guarantee that there wil be fish!`,
-    imageURL: "/CookingFish.JPEG"
+    longDescription: `Join us at our barge for a fun day of fishing! We wil find the best local spots for trout and guarantee that there wil be fish!`
   },
   { id: 2, name: 'River safari', description: 'Get a sight of the rare fish-eagle!', duration: '2 hours', price: '500 ,-', 
-    longDescription: `Embark on a thrilling River Safari! Cruise up the river in a high-speed RIB boat, spotting fish eagles and beavers in their natural habitat. Our local guide shares captivating stories along the way, making this a perfect mix of adventure and discovery. Book your River Safari now for an unforgettable experience!`,
-    imageURL: "/MakingFish.JPEG"
+    longDescription: `Embark on a thrilling River Safari! Cruise up the river in a high-speed RIB boat, spotting fish eagles and beavers in their natural habitat. Our local guide shares captivating stories along the way, making this a perfect mix of adventure and discovery. Book your River Safari now for an unforgettable experience!`
     }
 ]
 
@@ -63,7 +61,7 @@ export function CampingActivitiesOnepager() {
           {activities.map((activity) => (
             <Card key={activity.id} className="flex flex-col">
               <Image
-                src={activity.imageURL}
+                src="/CookingFish.JPEG"
                 alt={activity.name}
                 width={400}
                 height={300}
