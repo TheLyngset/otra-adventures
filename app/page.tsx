@@ -30,7 +30,7 @@ export default function Home() {
         logoSvg={logoSvg}
         menuItems={menuItems}
       />
-      <main className="flex-1 p-4">
+      <main className="flex-1">
         <CampingActivitiesOnepager/>
       </main>
     </div>
