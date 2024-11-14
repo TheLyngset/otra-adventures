@@ -1,5 +1,6 @@
 import {CampingActivitiesOnepager} from "@/components/camping-activities-onepager";
 import { MobileTopBarComponent } from "@/components/mobile-top-bar";
+import { FileText } from "lucide-react";
 
 export default function Home() {
   const logoSvg = (
@@ -10,8 +11,12 @@ export default function Home() {
 
   const menuItems = [
     { label: 'Home', href: '/' },
-    { label: 'About', href: '/about' },
-    { label: 'Contact', href: '/contact' },
+    { 
+      label: 'Activities PDF', 
+      href: '/camping-activities.pdf', 
+      icon: <FileText className="h-6 w-6" />,
+      download: true
+    },
   ]
 
   const handleMenuItemClick = (item) => {
