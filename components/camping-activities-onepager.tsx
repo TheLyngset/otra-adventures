@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import Image from 'next/image'
 import { ChevronLeft} from 'lucide-react'
 import { Button } from "@/components/ui/button"
@@ -15,9 +15,13 @@ const activities = [
   { id: 1, 
     name: 'Catch and eat your own river fish', 
     description: 'Fish guarantied!', duration: '4 hours', price: '750,-', 
+    imageUrl: "/CookingFish.JPEG",
+    imagePlacement: "object-[center_-70px]",
     longDescription: `Join us at our barge for a fun day of fishing! We wil find the best local spots for trout and guarantee that there wil be fish!`
   },
   { id: 2, name: 'River safari', description: 'Get a sight of the rare fish-eagle!', duration: '2 hours', price: '500 ,-', 
+    imageUrl: "/Fishing.JPEG",
+    imagePlacement: "object-[center_-150px]",
     longDescription: `Embark on a thrilling River Safari! Cruise up the river in a high-speed RIB boat, spotting fish eagles and beavers in their natural habitat. Our local guide shares captivating stories along the way, making this a perfect mix of adventure and discovery. Book your River Safari now for an unforgettable experience!`
     }
 ]
@@ -29,6 +33,8 @@ export function CampingActivitiesOnepager() {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
   const [selectedTime, setSelectedTime] = useState<string | undefined>(undefined)
 
+  const bookingSectionRef = useRef<HTMLDivElement>(null);
+
   const handleBooking = (event: React.FormEvent) => {
     event.preventDefault()
     // Here you would typically send the booking data to your server
@@ -37,6 +43,13 @@ export function CampingActivitiesOnepager() {
     setSelectedActivity(null)
     setSelectedDate(undefined)
     setSelectedTime(undefined)
+  }
+  const handleActivitySelection = (activity) => {
+    setSelectedActivity(activity);
+
+    setTimeout(() => {
+      bookingSectionRef.current?.scrollIntoView({behavior: 'smooth'});
+    }, 100);
   }
 
   return (
@@ -48,6 +61,7 @@ export function CampingActivitiesOnepager() {
           layout="fill"
           objectFit="cover"
           priority
+          className="object-[center_-40px]"
         />
         <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-white p-4">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 text-center">Camping Activities</h1>
@@ -59,13 +73,13 @@ export function CampingActivitiesOnepager() {
         <h2 className="text-2xl font-semibold mb-4">Our Activities</h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {activities.map((activity) => (
-            <Card key={activity.id} className="flex flex-col">
+            <Card key={activity.id} className="flex flex-col overflow-hidden">
               <Image
-                src="/CookingFish.JPEG"
+                src={activity.imageUrl}
                 alt={activity.name}
                 width={400}
-                height={300}
-                className="w-full h-48 object-cover"
+                height={200}
+                className={"w-full h-72 object-cover" + " " + activity.imagePlacement}
               />
               <CardHeader>
                 <CardTitle>{activity.name}</CardTitle>
@@ -77,14 +91,14 @@ export function CampingActivitiesOnepager() {
                 <p>Price: {activity.price}</p>
               </CardContent>
               <CardFooter>
-                <Button onClick={() => setSelectedActivity(activity)}>Book Now</Button>
+                <Button onClick={() => handleActivitySelection(activity)}>Book Now</Button>
               </CardFooter>
             </Card>
           ))}
         </div>
       </section>
 
-      <section id="booking" className="space-y-8 p-4">
+      <section id="booking" className="space-y-8 p-4" ref={bookingSectionRef}>
         <h2 className="text-2xl font-semibold mb-4">Book an Activity</h2>
         {!selectedActivity ? (
           <Card>
