@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { FileText } from "lucide-react";
+import { MobileTopBarComponent } from "@/components/mobile-top-bar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -23,11 +25,37 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const logoSvg = (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M12 2L1 21h22L12 2zm0 3.516L20.297 19H3.703L12 5.516zM11 16h2v2h-2v-2zm0-7h2v5h-2V9z" />
+    </svg>
+  );
+  const menuItems = [
+    { label: "Home", href: "/" },
+    { label: "My bookings", href: "/myBookings" },
+    {
+      label: "Activities PDF",
+      href: "/camping-activities.pdf",
+      icon: <FileText className="h-6 w-6" />,
+      download: true,
+    },
+  ];
+
+  const handleMenuItemClick = (item) => {
+    console.log(`Clicked on ${item.label}`);
+    // Add any additional logic here
+  };
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <MobileTopBarComponent logoSvg={logoSvg} menuItems={menuItems} />
         {children}
       </body>
     </html>
